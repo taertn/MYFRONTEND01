@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Rattana SAU</title>
+
+    <style>
+      /* =====================================================
+           GLOBAL VARIABLES
+           ===================================================== */
+      :root {
+        --bg-color: #000000;
+        --nav-color: #1a1a1a; /* เพิ่มสีพื้นหลัง Navbar */
+
+        --text-color: #ffffff;
+        --text-gray: #858585;
+        --border-color: #252525;
+
+        --green: #38a900;
+        --green-hover: #45c400;
+
+        --container-max: 1180px;
+      }
+
+      /* =====================================================
+           RESET
+           ===================================================== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        background-color: var(--bg-color);
+        background-image:
+          radial-gradient(
+            circle at 85% 15%,
+            rgba(56, 169, 0, 0.05) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 10% 80%,
+            rgba(56, 169, 0, 0.03) 0%,
+            transparent 45%
+          );
+        background-size:
+          100% 100%,
+          100% 100%,
+          40px 40px,
+          40px 40px;
+        color: var(--text-color);
+        font-family: Arial, Helvetica, sans-serif;
+        overflow-x: hidden;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+
+      /* =====================================================
+           RESPONSIVE CONTAINER
+           ===================================================== */
+      .container {
+        width: 88%;
+        max-width: var(--container-max);
+        margin: 0 auto;
+      }
+
+      /* =====================================================
+           NAVIGATION
+           ===================================================== */
+      .navbar {
+        width: 100%;
+        min-height: 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--nav-color);
+        border-radius: 0 0 8px 8px; /* ปรับความโค้งให้สมูทขึ้น */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      .nav-content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(20px, 4vw, 55px);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(20px, 4vw, 50px);
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: #777777;
+        font-family: "Courier New", monospace; /* เปลี่ยนเป็นฟอนต์ตามม็อกอัพ */
+        font-size: clamp(12px, 0.8vw, 12px);
+        letter-spacing: 0.6px;
+        white-space: nowrap;
+        transition: 0.25s ease;
+      }
+
+      .nav-links a:hover {
+        color: #ffffff;
+      }
+
+      /* =====================================================
+           SOCIAL ICONS
+           ===================================================== */
+      .social-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(20px, 1.5vw, 30px);
+        color: #666666;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.25s ease;
+      }
+
+      .social-links a:hover {
+        color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .social-icon {
+        width: clamp(12px, 1.2vw, 16px);
+        height: clamp(12px, 1.2vw, 16px);
+        fill: currentColor;
+      }
+
+      /* =====================================================
+           HERO SECTION
+           ===================================================== */
+      .hero {
+        min-height: calc(100vh - 170px);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+        align-items: center;
+        gap: clamp(40px, 7vw, 100px);
+        padding-top: clamp(30px, 5vw, 70px);
+        padding-bottom: clamp(50px, 8vw, 100px);
+      }
+
+      .hero-text {
+        align-self: center;
+      }
+
+      .hero-text h1 {
+        font-size: clamp(32px, 3.5vw, 56px);
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: -1.5px;
+        margin-bottom: clamp(10px, 1vw, 16px);
+      }
+
+      .hero-text h2 {
+        font-size: clamp(28px, 3.2vw, 48px);
+        line-height: 1;
+        font-weight: 700;
+        letter-spacing: -1.2px;
+        margin-bottom: clamp(15px, 2vw, 24px);
+      }
+
+      .hero-description {
+        width: min(100%, 480px);
+        color: var(--text-gray);
+        font-family: "Courier New", monospace;
+        font-size: clamp(12px, 0.9vw, 12px); /* ปรับให้อ่านง่ายขึ้นเล็กน้อย */
+        line-height: 1.75;
+        margin-bottom: clamp(25px, 3vw, 35px);
+      }
+
+      /* =====================================================
+           GET STARTED BUTTON
+           ===================================================== */
+      .start-button {
+        width: clamp(185px, 17vw, 240px);
+        height: clamp(45px, 3.8vw, 55px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        border-radius: 4px;
+        background: var(--green);
+        color: #ffffff;
+        font-family: "Courier New", monospace;
+        font-size: clamp(12px, 0.9vw, 14px);
+        font-weight: bold;
+        cursor: pointer;
+        /* เพิ่มเงาเรืองแสงสีเขียวให้ตรงกับม็อกอัพ */
+        box-shadow: 0 0 35px rgba(56, 169, 0, 0.35); 
+        transition: 0.25s ease;
+      }
+
+      .start-button:hover {
+        background: var(--green-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 45px rgba(56, 169, 0, 0.5);
+      }
+
+      .arrow {
+        font-size: clamp(17px, 1.4vw, 20px);
+        font-family: Arial, sans-serif;
+      }
+
+      /* =====================================================
+           PROFILE IMAGE
+           ===================================================== */
+      .profile {
+        width: clamp(240px, 28vw, 400px);
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 50%;
+        background: #222222;
+        justify-self: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      }
+
+      .profile img {
+        width: 100%;
+        height: 130%;
+        object-fit: cover;
+      }
+
+      /* =====================================================
+           WORKED WITH
+           ===================================================== */
+      .worked-with {
+        padding-bottom: clamp(30px, 5vw, 70px);
+      }
+
+      .worked-title {
+        margin-bottom: 20px;
+        color: #999999;
+        font-family: "Courier New", monospace;
+        font-size: clamp(12px, 0.8vw, 13px);
+      }
+
+      /* เพิ่ม Grid สำหรับ Desktop ที่ตกหล่นไป */
+      .company-list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: clamp(15px, 2vw, 30px);
+      }
+
+      .company {
+        min-height: clamp(45px, 5vw, 65px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        background: rgba(25, 25, 25, 0.4);
+        transition: 0.25s ease;
+        padding: 0 15px;
+      }
+
+      .company:hover {
+        border-color: #3a3a3a;
+        background: rgba(35, 35, 35, 0.6);
+      }
+
+      .company-logo {
+        max-height: clamp(18px, 2vw, 28px);
+        width: auto;
+        object-fit: contain;
+        opacity: 0.6; /* ปรับให้สีดรอปลงคล้ายภาพต้นฉบับ */
+        transition: 0.3s;
+      }
+      
+      .company:hover .company-logo {
+        opacity: 1;
+      }
+
+      /* =====================================================
+           RESPONSIVE (TABLET & MOBILE)
+           ===================================================== */
+      @media (max-width: 900px) {
+        .container {
+          width: 90%;
+        }
+        .nav-content {
+          gap: 20px;
+        }
+        .nav-links {
+          gap: 20px;
+        }
+        .hero {
+          grid-template-columns: minmax(0, 1fr) minmax(200px, 280px);
+          gap: 35px;
+        }
+        .profile {
+          width: clamp(190px, 28vw, 280px);
+        }
+        .company-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 650px) {
+        .navbar {
+          padding: 12px 10px;
+        }
+        .nav-content {
+          flex-wrap: wrap;
+          gap: 10px 18px;
+        }
+        .nav-links {
+          width: 100%;
+          justify-content: safe center;
+          gap: clamp(12px, 4vw, 22px);
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+        .nav-links::-webkit-scrollbar {
+          display: none;
+        }
+        .social-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(15px, 2vw, 25px); /* ขยายระยะห่างระหว่างไอคอนให้ดูกว้างขึ้น */
+        color: #666666;
+        position: absolute; /* จัดตำแหน่งแบบเจาะจง */
+        right: clamp(20px, 4vw, 50px); /* ดันกลุ่มไอคอนไปชิดขอบขวา */
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.25s ease;
+      }
+
+      .social-links a:hover {
+        color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .social-icon {
+        width: clamp(15px, 1.5vw, 30px); /* ปรับขนาดไอคอนให้ใหญ่ขึ้นนิดหน่อยจะได้ดูเต็มตา */
+        height: clamp(15px, 1.5vw, 30px);
+        fill: currentColor;
+      }
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+          text-align: center;
+          gap: 35px;
+          padding-top: 55px;
+          padding-bottom: 45px;
+        }
+        .hero-text {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .hero-text h1 {
+          font-size: clamp(32px, 9vw, 48px);
+        }
+        .hero-text h2 {
+          font-size: clamp(28px, 8vw, 42px);
+        }
+        .hero-description {
+          width: 100%;
+          max-width: 450px;
+          font-size: clamp(12px, 0.9vw, 14px);
+          text-align: left;
+        }
+        .profile {
+          order: -1;
+          width: clamp(180px, 55vw, 260px);
+        }
+        .worked-with {
+          padding-bottom: 50px;
+        }
+        .worked-title {
+          text-align: center;
+        }
+        .company-list {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+        .company:last-child {
+          grid-column: 1 / -1;
+          width: 50%;
+          justify-self: center;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .container {
+          width: 92%;
+        }
+        .nav-links {
+          gap: 10px;
+        }
+        .nav-links a {
+          font-size: clamp(12px, 0.9vw, 14px);
+        }
+        .hero {
+          gap: 28px;
+        }
+        .profile {
+          width: 170px;
+        }
+        .company {
+          min-height: 42px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+    <div class="container">
+      <nav class="navbar">
+        <div class="nav-content">
+          <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#case-studies">Case Studies</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#recent-work">Recent work</a></li>
+            <li><a href="#contact">Get In Touch</a></li>
+          </ul>
+
+          <!-- Social Icons -->
+          <div class="social-links">
+            <!-- LinkedIn -->
+            <a href="#" aria-label="LinkedIn">
+              <svg class="social-icon" viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A2.01 2.01 0 0 0 3.25 5c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2ZM20.75 13.4c0-3.47-1.85-5.09-4.32-5.09-1.99 0-2.88 1.1-3.38 1.88V8.5H9.67V20h3.38v-6.04c0-1.59.3-3.13 2.27-3.13 1.94 0 1.96 1.82 1.96 3.23V20h3.38l.09-6.6Z"
+                />
+              </svg>
+            </a>
+
+            <!-- Behance -->
+            <a href="#" aria-label="Behance">
+              <svg class="social-icon" viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  d="M8.4 11.1c1.15-.55 1.73-1.44 1.73-2.67 0-2.05-1.54-3.43-3.9-3.43H2v10.98h4.53c2.47 0 4.17-1.35 4.17-3.62 0-1.12-.77-1.89-2.3-2.26ZM4.54 6.94h1.43c1.02 0 1.58.44 1.58 1.25 0 .8-.59 1.27-1.6 1.27H4.54V6.94Zm1.55 7.1H4.54v-2.55h1.62c1.1 0 1.68.45 1.68 1.29 0 .84-.6 1.26-1.75 1.26ZM15.82 8.1c-2.66 0-4.37 1.82-4.37 4.57 0 2.8 1.75 4.48 4.47 4.48 1.42 0 2.66-.4 3.5-1.1l-1.02-1.57c-.66.48-1.38.72-2.23.72-1.18 0-1.86-.53-2.04-1.58h5.59c.02-.2.03-.47.03-.72 0-2.89-1.43-4.8-3.93-4.8Zm-1.68 3.75c.17-1.03.73-1.55 1.68-1.55.9 0 1.43.5 1.55 1.55h-3.23ZM14.1 5.55h4.1v1.05h-4.1V5.55Z"
+                />
+              </svg>
+            </a>
+
+            <!-- X / Twitter -->
+            <a href="#" aria-label="Twitter">
+              <svg class="social-icon" viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-6.4L6.48 22H3.37l7.24-8.28L3 2h6.4l4.42 5.84L18.9 2Zm-1.1 17.88h1.73L8.47 4h-1.8l11.13 15.88Z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+    <main id="home">
+      <div class="container">
+        <section class="hero">
+          <!-- Hero Text -->
+          <div class="hero-text">
+            <h1>6519410047</h1>
+            <h2>Rattana Pattanatrakuleak</h2>
+            <p class="hero-description">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+              rem odit labore unde nemo omnis sequi hic sit laudantium
+              repellendus recusandae vitae ea laborum, ipsa nisi eos autem.
+            </p>
+            <a href="#contact" class="start-button">
+              Let's get started
+              <span class="arrow">›</span>
+            </a>
+          </div>
+
+          <!-- Profile -->
+          <div class="profile">
+            <img src="./images/m1.jpg" alt="My profile" />
+          </div>
+        </section>
+
+        <!-- =================================================
+                 WORKED WITH
+                 ================================================= -->
+        <section class="worked-with">
+          <p class="worked-title">Worked with</p>
+
+          <div class="company-list">
+            <!-- 1. ClickUp -->
+            <div class="company">
+              <img
+                src="./images/logo1.png"
+                alt="ClickUp"
+                class="company-logo"
+              />
+            </div>
+
+            <!-- 2. Dropbox -->
+            <div class="company">
+              <img
+                src="./images/logo2.png"
+                alt="Dropbox"
+                class="company-logo"
+              />
+            </div>
+
+            <!-- 3. Paychex -->
+            <div class="company">
+              <img
+                src="./images/logo3.png"
+                alt="Paychex"
+                class="company-logo"
+              />
+            </div>
+
+            <!-- 4. Elastic -->
+            <div class="company">
+              <img
+                src="./images/logo4.png"
+                alt="Elastic"
+                class="company-logo"
+              />
+            </div>
+
+            <!-- 5. Stripe -->
+            <div class="company">
+              <img
+                src="./images/logo5.png"
+                alt="Stripe"
+                class="company-logo"
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
